@@ -73,6 +73,37 @@ func part1() int {
 	return GetTotalPriority(input)
 }
 
+func getBadge(algo []string) byte {
+	algo_b_0 := []byte(algo[0])
+	algo_b_1 := []byte(algo[1])
+	algo_b_2 := []byte(algo[2])
+	for i := 0; i < len(algo_b_0); i++ {
+		for j := 0; j < len(algo_b_1); j++ {
+			if algo_b_0[i] == algo_b_1[j] {
+				for k := 0; k < len(algo_b_2); k++ {
+					if algo_b_1[j] == algo_b_2[k] {
+						return algo_b_0[i]
+					}
+				}
+			}
+		}
+	}
+	return 0
+}
+
+func part2() int {
+	var input []string = ReadFromFile("input.txt")
+	count := 0
+
+	for i := 0; i < len(input); i += 3 {
+		count += priority(getBadge(input[i : i+3]))
+	}
+
+	return count
+}
+
 func main() {
-	fmt.Println(part1())
+
+	fmt.Println(part2())
+
 }
