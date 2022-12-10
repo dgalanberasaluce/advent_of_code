@@ -14,6 +14,20 @@ func Part1(lines []string) int {
 
 	for _, line := range lines {
 		parsed = parseString(line)
+		if fullContains(parsed[0:2], parsed[2:4]) {
+			res += 1
+		}
+	}
+
+	return res
+}
+
+func Part2(lines []string) int {
+	var res = 0
+	var parsed []int
+
+	for _, line := range lines {
+		parsed = parseString(line)
 		if contains(parsed[0:2], parsed[2:4]) {
 			res += 1
 		}
@@ -23,6 +37,13 @@ func Part1(lines []string) int {
 }
 
 func contains(list1, list2 []int) bool {
+
+	return fullContains(list1, list2) ||
+		(list1[0] <= list2[1] && list1[1] >= list2[0]) ||
+		(list2[0] <= list1[1] && list2[1] >= list1[0])
+}
+
+func fullContains(list1, list2 []int) bool {
 	return (list1[0] <= list2[0] && list1[1] >= list2[1]) || (list1[0] >= list2[0] && list1[1] <= list2[1])
 }
 
@@ -70,4 +91,5 @@ func main() {
 	var lines = ReadFromFile("input.txt")
 
 	fmt.Println(Part1(lines)) // 547
+	fmt.Println(Part2(lines))
 }

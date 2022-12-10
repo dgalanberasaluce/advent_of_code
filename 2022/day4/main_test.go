@@ -2,7 +2,7 @@ package main
 
 import "testing"
 
-func TestPart1(t *testing.T) {
+func TestDay4(t *testing.T) {
 
 	assertCorrectMessage := func(t testing.TB, got, want int) {
 		t.Helper()
@@ -19,10 +19,18 @@ func TestPart1(t *testing.T) {
 		"6-6,4-6",
 		"2-6,4-8"}
 
-	t.Run("running subtest 1:", func(t *testing.T) {
+	t.Run("running part 1:", func(t *testing.T) {
 
 		got := Part1(lines)
 		want := 2
+
+		assertCorrectMessage(t, got, want)
+	})
+
+	t.Run("running part 2:", func(t *testing.T) {
+
+		got := Part2(lines)
+		want := 4
 
 		assertCorrectMessage(t, got, want)
 	})
