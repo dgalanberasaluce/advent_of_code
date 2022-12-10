@@ -38,8 +38,7 @@ func Part2(lines []string) int {
 
 func contains(list1, list2 []int) bool {
 
-	return fullContains(list1, list2) ||
-		(list1[0] <= list2[1] && list1[1] >= list2[0]) ||
+	return (list1[0] <= list2[1] && list1[1] >= list2[0]) ||
 		(list2[0] <= list1[1] && list2[1] >= list1[0])
 }
 
@@ -91,5 +90,5 @@ func main() {
 	var lines = ReadFromFile("input.txt")
 
 	fmt.Println(Part1(lines)) // 547
-	fmt.Println(Part2(lines))
+	fmt.Println(Part2(lines)) // 843
 }
