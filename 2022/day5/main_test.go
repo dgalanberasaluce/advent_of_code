@@ -31,4 +31,11 @@ func TestDay5(t *testing.T) {
 		assertCorrectMessage(t, got, want)
 	})
 
+	t.Run("running part 2:", func(t *testing.T) {
+
+		got := Part2(lines)
+		want := "MCD"
+
+		assertCorrectMessage(t, got, want)
+	})
 }
