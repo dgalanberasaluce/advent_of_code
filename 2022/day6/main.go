@@ -6,23 +6,40 @@ import (
 	"os"
 )
 
-func isRepeated(items []byte) bool {
+/*func isRepeated(items []byte) bool {
 	return items[0] == items[1] || items[0] == items[2] || items[0] == items[3] ||
 		items[1] == items[2] || items[1] == items[3] ||
 		items[2] == items[3]
+}*/
+
+func isRepeated(items []byte) bool {
+	for i, item1 := range items {
+		for _, item2 := range items[i+1:] {
+			if item1 == item2 {
+				return true
+			}
+		}
+	}
+	return false
 }
 
-func Part1(line string) int {
-
-	items := []byte(line)
-
-	for idx := 4; idx <= len(items); idx++ {
-		if !isRepeated(items[idx-4 : idx]) {
+func findIndex(items []byte, n int) int {
+	for idx := n; idx <= len(items); idx++ {
+		if !isRepeated(items[idx-n : idx]) {
 			return idx
 		}
 	}
-
 	return -1
+
+}
+func Part1(line string) int {
+	items := []byte(line)
+	return findIndex(items, 4)
+}
+
+func Part2(line string) int {
+	items := []byte(line)
+	return findIndex(items, 14)
 }
 
 func ReadFromFile(path string) []string {
@@ -53,7 +70,8 @@ func ReadFromFile(path string) []string {
 func main() {
 	var lines = ReadFromFile("input.txt")
 
-	fmt.Println(Part1(lines[0])) // 547
-	//fmt.Println(Part2(lines))    // 843
+	fmt.Println(Part1(lines[0])) // 1760
+
+	fmt.Println(Part2(lines[0])) //
 
 }
