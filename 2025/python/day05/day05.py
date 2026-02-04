@@ -56,6 +56,29 @@ def solve2(ingredient_ranges):
     
     return total_coverage_count
 
+def solve2_opt(ingredient_ranges):
+    sorted_ranges = sorted(ingredient_ranges)
+
+    if not sorted_ranges:
+        return 0
+    
+    total_coverage = 0
+
+    current_start, current_end = sorted_ranges[0]
+
+    for next_start, next_end in sorted_ranges[1:]:
+        if next_start <= current_end:
+            current_end = max(current_end, next_end)
+        else:
+            total_coverage += (current_end - current_start + 1)
+            current_start, current_end = next_start, next_end
+
+    # Add the final range
+    total_coverage += (current_end - current_start + 1)
+    
+    return total_coverage
+
+
 def get_optimized_range(fresh_ingredients_range):
     sorted_range = sorted(fresh_ingredients_range, key=lambda x: x[0])
     merged_ranges = []
@@ -118,7 +141,16 @@ def part2():
     print(f"{"PASS" if expected == sol else "FAILED"} solution: {sol} - expected: {expected}")
 
     r, avail = pre("input.txt")
-    print(f"Solution Test: {solve2(r)}")
+    start_time = time.time()
+    sol = solve2(r)
+    end_time = time.time()
+    print(f"Solution Test Optimized: {sol} ({end_time - start_time} s)")
+
+    start_time = time.time()
+    sol = solve2_opt(r)
+    end_time = time.time()
+    print(f"Solution Test Optimized: {sol} ({end_time - start_time} s)")
+
 
 if __name__ == "__main__":
     part1()
