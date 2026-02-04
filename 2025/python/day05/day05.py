@@ -26,6 +26,41 @@ def solve1_opt(r_opt, avail):
     
     return fresh_count
 
+def solve2(ingredient_ranges):
+    sorted_ranges = sorted(ingredient_ranges)
+
+    if not sorted_ranges:
+        return 0
+
+    merged_intervals = []
+    merged_intervals.append(sorted_ranges[0])
+    active_start, active_end = sorted_ranges[0]
+
+    for next_start, next_end in sorted_ranges[1:]:
+
+        if next_start < active_end:
+            if active_end < next_end:
+                merged_intervals[-1] = (active_start, next_end)
+                active_end = next_end
+        else:
+            merged_intervals.append((next_start, next_end))
+            active_start, active_end = next_start, next_end
+
+    total_coverage_count = 0
+    previous_interval_end = 0
+
+    for start, end in merged_intervals:
+        range_size = end - start + 1
+        total_coverage_count += range_size
+
+        # Edge case: the current interval start is equals to the previous interval end
+        if previous_interval_end == start:
+            total_coverage_count -= 1
+            
+        previous_interval_end = end
+    
+    return total_coverage_count
+
 def get_optimized_range(fresh_ingredients_range):
     sorted_range = sorted(fresh_ingredients_range, key=lambda x: x[0])
     merged_ranges = []
@@ -42,7 +77,6 @@ def get_optimized_range(fresh_ingredients_range):
         merged_ranges.append((curr_start, curr_end))
 
     return merged_ranges
-
 
 def pre(filename):
     fresh_ingredients_range = []
@@ -73,18 +107,26 @@ def part1_t():
     start_time = time.time()
     r, avail = pre("input.txt")
     sol = solve1(r,avail)
-    print(sol)
     print(f"Time part1: {time.time() - start_time}")
-
 
 def part1_opt_t():
     start_time = time.time()
     r, avail = pre("input.txt")
     r_opt = get_optimized_range(r)
     sol = solve1_opt(r_opt, avail)
-    print(sol)
     print(f"Time part1 optimized: {time.time() - start_time}")
 
+def part2():
+    expected = 14
+    r, avail = pre("sample.txt")
+    sol = solve2(r)
+    print(f"{"PASS" if expected == sol else "FAILED"} solution: {sol} - expected: {expected}")
+
+    r, avail = pre("input.txt")
+    print(f"Solution Test: {solve2(r)}")
+
 if __name__ == "__main__":
+    part1()
     part1_t()
     part1_opt_t()
+    part2()
