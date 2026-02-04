@@ -38,7 +38,7 @@ def solve2(ingredient_ranges):
 
     for next_start, next_end in sorted_ranges[1:]:
 
-        if next_start < active_end:
+        if next_start <= active_end:
             if active_end < next_end:
                 merged_intervals[-1] = (active_start, next_end)
                 active_end = next_end
@@ -52,11 +52,6 @@ def solve2(ingredient_ranges):
     for start, end in merged_intervals:
         range_size = end - start + 1
         total_coverage_count += range_size
-
-        # Edge case: the current interval start is equals to the previous interval end
-        if previous_interval_end == start:
-            total_coverage_count -= 1
-            
         previous_interval_end = end
     
     return total_coverage_count
