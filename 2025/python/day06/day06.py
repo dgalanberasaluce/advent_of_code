@@ -1,23 +1,23 @@
-from itertools import zip_longest
-
 def solve1(filename):
-
     with open(filename) as f:
-        tmp_add = []
-        tmp_mul = []
-        tmp_ops = []
+        lines = f.readlines()
 
-        for line in f:
-            row = line.strip().split()
+    ops = lines[len(lines)-1].strip().split()
+    acc = [0 if op == "+" else 1 for op in ops]
 
-            if row[0] == "+" or row[0] == "*":
-                tmp_ops = row
+    for line in lines[:-1]:
+        row = line.strip().split()
+
+        for i, val in enumerate(row):
+            if i >= len(ops): break
+            
+            num = int(val)
+            if ops[i] == "+":
+                acc[i] += num
             else:
-                tmp_add = [int(x) + int(y) for x, y in zip_longest(tmp_add, row, fillvalue=0)]
-                tmp_mul = [int(x) * int(y) for x, y in zip_longest(tmp_mul, row, fillvalue=1)]
-    
-    ans = [ tmp_add[i] if op == "+" else tmp_mul[i] for i, op in enumerate(tmp_ops) ]
-    return sum(ans)
+                acc[i] *= num
+                
+    return sum(acc)
 
 def part1():
     expected = 4277556
@@ -27,4 +27,4 @@ def part1():
     print(f"Solution Test: {solve1("input.txt")}")
 
 if __name__ == "__main__":
-    part1()
+    part1() # 5381996914800
