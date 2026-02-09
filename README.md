@@ -71,3 +71,19 @@ if not my_list:          # Works for all collections
 if len(my_list) == 0:
 if my_list == []:
 ```
+
+**String manipulation**
+```python
+import re
+
+re.findall() -> list[str]     # Find all matches in the string
+re.finditer() -> Iterator     # Returns an iterator
+re.search() -> object or None # Finds the first match
+re.sub() -> str               # Replaces matches with a new string
+
+match = re.search(pattern, text)
+if match:
+  s_index = match.start()
+  e_index = match.end()
+  full_span = match.span()
+```
