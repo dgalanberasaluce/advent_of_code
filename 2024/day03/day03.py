@@ -20,7 +20,28 @@ def solve1(filename):
 
 
 def solve2(filename):
-    pass
+    text = parse_file(filename)
+    pattern = r"mul\((\d+),(\d+)\)|do\(\)|don't\(\)"
+
+    matches = re.finditer(pattern, text)
+
+    total_sum = 0
+    enabled = True  # At the beginning of the program, mul instructions are enabled
+
+    for match in matches:
+        token = match.group(0)
+
+        if token == "do()":
+            enabled = True
+        elif token == "don't()":
+            enabled = False
+        elif token.startswith("mul"):
+            if enabled:
+                x = int(match.group(1))
+                y = int(match.group(2))
+                total_sum += x * y
+
+    return total_sum
 
 
 def part1():
@@ -34,15 +55,15 @@ def part1():
 
 
 def part2():
-    expected = -1
-    sol = solve2("sample.txt")
+    expected = 48
+    sol = solve2("sample2.txt")
     print(
         f"{"PASS" if expected == sol else "FAILED"} solution: {sol} - expected: {expected}"
     )
 
-    # print(f"Solution Test: {solve2("input.txt")}")
+    print(f"Solution Test: {solve2("input.txt")}")
 
 
 if __name__ == "__main__":
     part1()  # 166630675
-    # part2()  #
+    part2()  # 93465710
