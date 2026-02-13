@@ -1,7 +1,7 @@
 import re
 
 
-def parse_file(filename) -> list[list[str]]:
+def parse_file(filename):
     text = ""
     with open(filename, "r") as f:
         for line in f:
