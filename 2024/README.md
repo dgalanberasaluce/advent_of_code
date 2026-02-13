@@ -61,3 +61,11 @@
 - $U$: Number of unique stone values (Day 11)
 - $P$: Length of path (Day 20)
 - $C$: Cheat duration (Day 20)
+
+
+## Python Cheatsheet per day
+## Day 04
+- **The vector pattern**: Use a list of tuples instead of N `if` statements. 
+    - e.g `directions = [(-1, -1), (0, -1), ..., (1, 1)]`
+    - e.g `directions = [ (dr, dc) for dr in [1, 0, 1] for dc in [-1, 0, 1] if dc or dc]`
+- Use of `all()`
