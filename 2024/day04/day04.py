@@ -29,7 +29,23 @@ def solve1(filename):
 
 
 def solve2(filename):
-    pass
+    grid = parse_file(filename)
+    rows, cols = len(grid), len(grid[0])
+    count = 0
+
+    for r in range(rows):
+        for c in range(cols):
+            if grid[r][c] == "A":
+                if 0 < r < rows - 1 and 0 < c < cols - 1:
+                    # Store corners in a set. Set removes duplicates
+                    # Two Set are equal if it contains the same elements
+                    diag1 = {grid[r - 1][c - 1], grid[r + 1][c + 1]}
+                    diag2 = {grid[r - 1][c + 1], grid[r + 1][c - 1]}
+
+                    if diag1 == {"M", "S"} and diag2 == {"M", "S"}:
+                        count += 1
+
+    return count
 
 
 def part1():
@@ -43,7 +59,7 @@ def part1():
 
 
 def part2():
-    expected = -1
+    expected = 9
     sol = solve2("sample.txt")
     print(
         f"{"PASS" if expected == sol else "FAILED"} solution: {sol} - expected: {expected}"
@@ -54,4 +70,4 @@ def part2():
 
 if __name__ == "__main__":
     part1()  # 2458
-    # part2()  #
+    part2()  # 1945
