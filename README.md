@@ -87,3 +87,6 @@ if match:
   e_index = match.end()
   full_span = match.span()
 ```
+
+## Resources
+- https://github.com/keon/algorithms
