@@ -33,8 +33,9 @@ import heapq
 import bisect
 
 # --- collections ---
-counts = Counter(<iterable-or-mapping>) # Count occurrences
-counts.total()
+c = Counter(<iterable-or-mapping>) # Count occurrences
+c.total()
+c.most_common(4) # returns the 4 elements most common
 
 d = collections.defaultdict(<default_value_type>)
 d = collections.defaultdict()        # defaultdict(None, {})
@@ -46,7 +47,8 @@ q.pop()     # 5
 q.popleft() # 1
 
 # --- heapq --- (Min-Heap by default, use negative keys for Max-Heap)
-h = heapq.heapify(list) # Converts list to heap
+h = heapq.heapify(list) # Converts list to min-heap
+h = heapq.heapify_max(list) # Converts list to max-heap
 
 # -- bisect --- (Binary search)
 bisect.bisect_left(arr, x)
